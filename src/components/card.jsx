@@ -2,12 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import "./components.css";
 import axios from "axios";
 
-export function WordCard() {
+export function WordCard({ searchWord }) {
   const { data, isError, isPending } = useQuery({
     queryKey: ["searchWord"],
     queryFn: async () => {
       const { data } = await axios.get(
-        "https://api.dictionaryapi.dev/api/v2/entries/en/hello"
+        `https://api.dictionaryapi.dev/api/v2/entries/en/${searchWord}`
       );
       return data;
     },
@@ -18,28 +18,29 @@ export function WordCard() {
   }
 
   return (
-    <div className="word-card-plaque">
-      {data.map(({ word, origin, meanings }) => {
+    <>
+      {data.map(({ word, origin, meanings }, index) => {
         return (
-          <>
-            <h1>{word}</h1>
-          </>
+          <div key={index} className="word-card-plaque">
+            <h3>{word}</h3>
+            {meanings.map(({ definitions }, index) => {
+              console.log(definitions);
+              return (
+                <div key={index}>
+                  {definitions.map((element, index) => {
+                    return (
+                      <div key={index}>
+                        <h6>{element.definition}</h6>
+                        <p>{element.example}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
         );
       })}
-    </div>
+    </>
   );
 }
-
-// word
-// meaning
-// exaples
-// {
-//   meanings.map((meaning) => {
-//     return (
-//       <>
-//         <h2>{meaning.definitions[0].definition}</h2>
-//         <h4>{meaning.definitions[0].example}</h4>
-//       </>
-//     );
-//   });
-// }

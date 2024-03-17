@@ -8,9 +8,11 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="box-for-word-card">
-        <WordCard />
-      </div>
+      <WordCard searchWord={"hello"} />
+      <WordCard searchWord={"hello"} />
+      <WordCard searchWord={"hello"} />
+      <WordCard searchWord={"hello"} />
+      <WordCard searchWord={"hello"} />
     </QueryClientProvider>
   );
 }
