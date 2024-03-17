@@ -1,0 +1,12 @@
+.word-card-plaque {
+  border: solid;
+  border-radius: 25px;
+  padding: 20px;
+  width: 360px;
+}
+
+@media screen and (max-width: 600px) {
+  .word-card-plaque {
+    width: 80vw;
+  }
+}
